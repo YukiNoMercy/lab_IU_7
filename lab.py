@@ -1,19 +1,27 @@
 # Фамилия Имя группа
 import math
 
-print("-" * 28)
+# Получаем от пользователя начальное и конечное значения аргумента, а также шаг разбиения
+t = float(input("Введите начальное значение аргумента: "))
+tn = float(input("Введите конечное значение аргумента: "))
+h = float(input("Введите шаг разбиения данного отрезка: "))
+
+# Выводим шапку таблицы
+print("-" * 30)
 three_space = " " * 3
 print(
-    "|" + three_space + "t" + three_space + "|" + three_space + "x" + three_space + "|" + three_space + "y"
+    "|" + three_space + "t" + three_space + "|" + three_space + "x" + " " * 5 + "|" + three_space + "y"
     + three_space * 2 + "|")
-print("|" + "-" * 27)
+print("|" + "-" * 29)
 
-t = 0
-h = 0.3
-tn = 2 * math.pi
-
+# Основной цикл в котором мы считаем значения x и y и выводим в виде таблицы значений
 while t <= tn:
     x = 2 * (math.cos(t) + t * math.sin(t))
     y = 2 * (math.sin(t) - t * math.cos(t))
-    print("|   {:1g} | {:g}, ".format(t, x, y))
+    first_part_output = "|   {:1g}".format(t)
+    second_part_output = "| {:g}".format(x)
+    third_part_output = "| {:.5g}".format(y)
+    print(first_part_output + " " * (8 - len(first_part_output)) + second_part_output + " "
+          * (10 - len(second_part_output)) + third_part_output + " " * (11 - len(third_part_output)) + "|")
     t += h
+print("-" * 30)

@@ -40,10 +40,17 @@ min_y = 0
 # Ищем минимальное и максимальное значения, которые принимает функция
 while t <= tn:
     y = 2 * (math.sin(t) - t * math.cos(t))
-    if y > max_y:
-        max_y = y
-    if y < min_y:
-        min_y = y
+    y_proisvod = 2 * t * math.sin(t)
+    if y_proisvod > y:
+        if y_proisvod > max_y:
+            max_y = y_proisvod
+        if y < min_y:
+            min_y = y
+    else:
+        if y > max_y:
+            max_y = y
+        if y_proisvod < min_y:
+            min_y = y_proisvod
     t += h
 # Создание и вывод масштабной линейки
 first_output_graphic = " " * 5 + str(min_y) + " " * 5
@@ -60,10 +67,17 @@ step_graphic = round((max_y - min_y) / len(first_output_graphic), 5)
 t = temp
 while t <= tn:
     y = 2 * (math.sin(t) - t * math.cos(t))
+    y_proisv = 2 * t * math.sin(t)
     begin_string = "{:<1g}".format(t)
     begin_string += (" " * (4 - len(begin_string)) + "|")
     point = int((y - min_y) / step_graphic)
-    end_string = begin_string + " " * point + "*"
+    point_proizv = int((y_proisv - min_y) / step_graphic)
+    if point_proizv > point:
+        end_string = begin_string + " " * point + "*" + " " * (point_proizv - point - 1) + "*"
+    if point_proizv < point:
+        end_string = begin_string + " " * point_proizv + "*" + " " * (point - point_proizv - 1) + "*"
+    if point_proizv == point:
+        end_string = begin_string + " " * point_proizv + "*"
     end_string += (" " * (weigh - len(end_string)))
     # Создание асимптоты
     if flag:

@@ -2,7 +2,6 @@ def seven(a):
     a_dict = {}
     count_i = 0
     last_point = (0, 0)
-    ar = []
     for i in a:
         count_i += 1
         last_space = 0
@@ -25,23 +24,31 @@ def seven(a):
                 if count_i - 1 > temp_i:
                     temp_str = a[temp_i]
                     temp_s = temp_str[temp_j:]
-                    temp_s.replace(word, "")
+                    i_of_word = 0
+                    while i_of_word != -1:
+                        i_of_word = temp_s.find(word.lower())
+                        if i_of_word + 1 == " " and i_of_word == 0 or i_of_word + 1 == " " and i_of_word - 1 == " ":
+                            temp_s = temp_s[:i_of_word] + temp_s[i_of_word + len(word):]
                     a[temp_i] = temp_str[:temp_j] + temp_s
                     temp_i += 1
                     while count_i != temp_i:
-                        temp_str = a[temp_i]
-                        temp_str = temp_s.replace(word, "")
-                        temp_str = temp_s.replace(word.upper(), "")
-                        i = temp_str
-                        ar.append(i)
+                        temp_s = a[temp_i]
+                        i_of_word = 0
+                        while i_of_word != -1:
+                            i_of_word = temp_s.find(word)
+                            if i_of_word + 1 == " " and i_of_word == 0 or i_of_word + 1 == " " and i_of_word - 1 == " ":
+                                temp_s = temp_s[:i_of_word] + temp_s[i_of_word + len(word):]
+                        a[temp_i] = temp_s
                         temp_i += 1
                 if temp_i == count_i - 1:
                     temp_s = i[temp_j : j]
-                    temp_s = temp_s.replace(word, "")
-                    temp_s = temp_s.replace(word.upper(), "")
-                    i = i[:temp_j] + temp_s + i[j:]
-                    ar.append(i)
-    return ar
+                    i_of_word = 0
+                    while i_of_word <= j:
+                        i_of_word = temp_s.find(word)
+                        if i_of_word + 1 == " " and i_of_word == 0 or i_of_word + 1 == " " and i_of_word - 1 == " ":
+                            temp_s = temp_s[:i_of_word] + temp_s[i_of_word + len(word):]
+                    a[temp_i] = temp_s
+    return a
 
 ar = ["И сказал воин и да.",
       "Что же ты сделал то ты такое."]
